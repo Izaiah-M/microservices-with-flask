@@ -26,6 +26,6 @@ if __name__ == "__main__":
     app = create_app()
     app.config["DEBUG"] = True
 
-    port = 4900
+    port = 5000
 
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
