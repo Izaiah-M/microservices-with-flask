@@ -1,0 +1,8 @@
+#  This configmap creates env viriables with in our container
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-configmap
+data:
+  MONGO_HOST: host.minikube.internal
+  DB_URI: DB_URI
