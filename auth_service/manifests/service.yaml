@@ -1,4 +1,4 @@
-#  This is a secret file that contains secret config
+# This is a secret file that contains secret config
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,7 +8,6 @@ spec:
     app: authservice
   type: ClusterIP
   ports:
-    -port: 5000
-     targetport: 5000 
-     protocol: TCP
- 
+    - port: 5000
+      targetPort: 5000
+      protocol: TCP

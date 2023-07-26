@@ -1,5 +1,4 @@
-# Configuration for our kubernates cluster which helps handle our docker img
-
+# Configuration for our Kubernetes cluster which helps handle our Docker image
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,22 +10,22 @@ spec:
   selector:
     matchLabels:
       app: authservice
-    strategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 3
-    template:
-      metadata:
-        labels:
-          app: authservice
-      spec:
-        containers:
-          - name: authservice
-            image: izaiahm/authservice
-            ports:
-              - containerPort: 5000
-            envFrom:
-              -configMapRef:
-              name: auth-configmap
-              -secretRef:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: authservice
+    spec:
+      containers:
+        - name: authservice
+          image: izaiahm/authservice
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: auth-configmap
+            - secretRef:
                 name: auth-secret
