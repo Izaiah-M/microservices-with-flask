@@ -9,20 +9,16 @@ book_bp = Blueprint("book", __name__, url_prefix="/api/book")
 def create_book():
     books = mongo.db.books
 
-    authorId = request.json.get("authorId")
-    name = request.json.get("name")
+    author = request.json.get("author")
+    bookname = request.json.get("name")
     genre = request.json.get("genre")
 
-    if not authorId:
-        return jsonify({"message": "Please provide all required fields"}), 400
+    author = {"_id": ObjectId(author.id), "name": author.name, "email": author.email}
 
-    if not name:
-        return jsonify({"message": "Please provide all required fields"}), 400
+    if not author or not bookname or not genre:
+        return jsonify({"message": "Missing fields"}), 400
 
-    if not genre:
-        return jsonify({"message": "Please provide all required fields"}), 400
-
-    book_doc = {"authorId": ObjectId(authorId), "name": name, "genre": genre}
+    book_doc = {"author": author, "name": bookname, "genre": genre}
 
     books.insert_one(book_doc)
 
