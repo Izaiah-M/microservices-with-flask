@@ -10,10 +10,16 @@ def create_book():
     books = mongo.db.books
 
     author = request.json.get("author")
-    bookname = request.json.get("name")
+    bookname = request.json.get("bookname")
     genre = request.json.get("genre")
 
-    author = {"_id": ObjectId(author.id), "name": author.name, "email": author.email}
+    print("Author: ", author)
+
+    author = {
+        "_id": ObjectId(author.get("id")),
+        "name": author.get("name"),
+        "email": author.get("email"),
+    }
 
     if not author or not bookname or not genre:
         return jsonify({"message": "Missing fields"}), 400
