@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from ..config import mongo
+from config import mongo
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
