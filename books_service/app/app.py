@@ -5,6 +5,11 @@ from .service import books_service
 
 from .config import mongo
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 config = configparser.ConfigParser()
 config.read(os.path.abspath(os.path.join(".ini")))
 

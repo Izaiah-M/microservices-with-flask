@@ -9,21 +9,24 @@ app = Flask(__name__)
 def login():
     # Get the login response from the access module
     print(request.json)
+
     try:
         res = access.login(request.json)
         return res
-    except:
+    except Exception as err:
+        print(err)
         return jsonify({"message": "Internal server error!"})
 
 
 # for reaching book creation
 @app.post("/create")
 def createBook():
-    try:
-        res = books.create(request.json)
-        return res
-    except:
-        return jsonify({"message": "Internal server error!"})
+    res, err = books.create(request)
+
+    if err:
+        return err, err[1]
+
+    return res, 200
 
 
 # if you want to use flask run command
