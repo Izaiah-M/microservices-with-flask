@@ -1,11 +1,13 @@
-import configparser
-import os
-from flask import Flask
-from .service import books_service
-
-from .config import mongo
-
 from dotenv import load_dotenv
+import configparser
+import os, sys
+from flask import Flask
+from utils import consumer
+from service import books_service
+from config import mongo
+
+# from app.config import mongo
+import threading
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,6 +32,21 @@ def create_app(test_config=None):
 if __name__ == "__main__":
     app = create_app()
     app.config["DEBUG"] = True
+
+    # Start the RabbitMQ consumer in a separate thread
+
+    # consumer_thread = threading.Thread(target=consumer.start_consumer)
+    # consumer_thread.daemon = True
+    # consumer_thread.start()
+
+    try:
+        consumer.start_consumer()
+    except KeyboardInterrupt:
+        print("Interrupted")
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os.exit(0)
 
     port = 4000
 
